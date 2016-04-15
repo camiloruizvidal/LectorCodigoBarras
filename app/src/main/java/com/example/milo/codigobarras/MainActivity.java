@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.example.milo.codigobarras.com.google.zxing.integration.IntentIntegrator;
 import com.example.milo.codigobarras.com.google.zxing.integration.IntentResult;
+import com.example.milo.codigobarras.com.google.zxing.integration.Productos;
 
 import java.util.concurrent.ExecutionException;
 
@@ -41,15 +42,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         IntentResult scanningResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, intent);
         if (scanningResult != null) {
 
+            Productos pro = new Productos();
             conexion Res = new conexion();
             String scanContent = scanningResult.getContents();
             String scanFormat = scanningResult.getFormatName();
-            //Ingresando parametros para enviar
-            Res.Parametros("id_tienda", "1");
-            Res.Parametros("numero_cod_barra", scanContent);
-            //Se ingresaron todos los parametros
-            scanContent = Res.Consultar();
-            contentTxt.setText("Contenido: " + scanContent);
+            pro.VerProducto("1",scanContent);
+            String Resultado = Res.Consultar().toString();
+
+            contentTxt.setText("Contenido: " + Resultado);
             formatTxt.setText("Formato: " + scanFormat);
         }
     }

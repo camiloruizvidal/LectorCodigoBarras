@@ -22,7 +22,8 @@ public class conexion extends AsyncTask<String, String, String> {
     private String Ruta;
 
     public conexion() {
-        Ruta = "http://solucionescrv.com/rest.php";
+        //Ruta = "http://solucionescrv.com/rest.php";
+        Ruta = "http://192.168.0.26/sis_cod_bar/rest.php";
         paramentros = new ArrayList<>();
         Type = "GET";
     }
