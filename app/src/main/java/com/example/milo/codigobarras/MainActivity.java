@@ -44,11 +44,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             Productos pro = new Productos();
             conexion Res = new conexion();
+
             String scanContent = scanningResult.getContents();
             String scanFormat = scanningResult.getFormatName();
             pro.VerProducto("1",scanContent);
             String Resultado = Res.Consultar().toString();
-
             contentTxt.setText("Contenido: " + Resultado);
             formatTxt.setText("Formato: " + scanFormat);
         }

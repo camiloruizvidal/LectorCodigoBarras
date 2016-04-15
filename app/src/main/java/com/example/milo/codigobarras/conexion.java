@@ -2,6 +2,7 @@ package com.example.milo.codigobarras;
 
 import android.content.Context;
 import android.os.AsyncTask;
+import android.util.Log;
 
 import org.json.JSONArray;
 
@@ -23,7 +24,8 @@ public class conexion extends AsyncTask<String, String, String> {
 
     public conexion() {
         //Ruta = "http://solucionescrv.com/rest.php";
-        Ruta = "http://192.168.0.26/sis_cod_bar/rest.php";
+        //Ruta = "http://192.168.0.26/sis_cod_bar/rest.php";
+        Ruta = "http://192.168.56.1/sis_cod_bar/rest.php";
         paramentros = new ArrayList<>();
         Type = "GET";
     }
@@ -86,7 +88,8 @@ public class conexion extends AsyncTask<String, String, String> {
                 Resultados = ("Response code:" + responseCode);
             }
         } catch (Exception e) {
-            Resultados = "false";
+            Log.d("Error",e.getMessage());
+            Resultados = e.getMessage();
         } finally {
             if (urlConnection != null)
                 urlConnection.disconnect();
