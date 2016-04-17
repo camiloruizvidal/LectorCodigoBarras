@@ -30,5 +30,6 @@ public class IndexActivity extends AppCompatActivity {
     {
         Intent i = new Intent(this, tienda_actual.class);
         startActivity(i);
+        finish();
     }
 }

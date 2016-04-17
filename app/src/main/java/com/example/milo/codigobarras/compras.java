@@ -8,10 +8,13 @@ import android.widget.Button;
 
 public class compras extends AppCompatActivity implements View.OnClickListener {
 
+    private String Tienda;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_compras);
+        Tienda = getIntent().getExtras().getString("tienda");
         Button consultar = (Button) findViewById(R.id.consultarcompras);
         consultar.setOnClickListener(this);
     }
