@@ -6,6 +6,7 @@ import android.util.Log;
 
 import org.json.JSONArray;
 
+import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -21,9 +22,11 @@ public class conexion extends AsyncTask<String, String, String> {
     private List<String[]> paramentros;
     private String Type;
     private String Ruta;
+    private String Resultados;
 
     public conexion() {
-        //Ruta = "http://solucionescrv.com/rest.php";
+        Resultados = "No aparecio nada";
+        Ruta = "http://solucionescrv.com/rest.php";
         Ruta = "http://192.168.0.26/sis_cod_bar/rest.php";
         //Ruta = "http://192.168.56.1/sis_cod_bar/rest.php";
         paramentros = new ArrayList<>();
@@ -65,8 +68,6 @@ public class conexion extends AsyncTask<String, String, String> {
 
     @Override
     protected String doInBackground(String... params) {
-
-        String Resultados = "No aparecio nada";
         URL url;
         HttpURLConnection urlConnection = null;
         JSONArray response = new JSONArray();
@@ -82,19 +83,23 @@ public class conexion extends AsyncTask<String, String, String> {
 
             int responseCode = urlConnection.getResponseCode();
             if (responseCode == 200) {
-                String responseString = readStream(urlConnection.getInputStream());
-                Resultados = (responseString);
+
+                InputStream in = new BufferedInputStream(urlConnection.getInputStream());
+                String Res = readStream(in);
+                this.Resultados = "";
+                this.Resultados = Res;
             } else {
-                Resultados = ("Response code:" + responseCode);
+                this.Resultados = ("Response code:" + responseCode);
             }
         } catch (Exception e) {
-            Log.d("Error",e.getMessage());
-            Resultados = e.getMessage();
+            Log.d("Error", e.getMessage());
+            this.Resultados = e.getMessage();
         } finally {
-            if (urlConnection != null)
+            if (urlConnection != null) {
                 urlConnection.disconnect();
+            }
         }
-        return Resultados;
+        return this.Resultados;
     }
 
     private String readStream(InputStream in) {
@@ -122,7 +127,8 @@ public class conexion extends AsyncTask<String, String, String> {
 
     public String Consultar() {
         try {
-            return this.execute(this.Ruta).get();
+            String Resultado = this.execute(this.Ruta).get();
+            return Resultado;
         } catch (InterruptedException e) {
             return "";
         } catch (ExecutionException e) {

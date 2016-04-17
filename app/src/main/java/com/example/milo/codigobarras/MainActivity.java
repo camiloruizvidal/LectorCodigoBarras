@@ -12,11 +12,13 @@ import com.example.milo.codigobarras.com.google.zxing.integration.IntentIntegrat
 import com.example.milo.codigobarras.com.google.zxing.integration.IntentResult;
 import com.example.milo.codigobarras.com.google.zxing.integration.Productos;
 
+import org.json.JSONObject;
+
 import java.util.concurrent.ExecutionException;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     private Button scanBtn;
-    private TextView formatTxt, contentTxt;
+    private TextView formatTxt, contentTxt, precio;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +27,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         scanBtn = (Button) findViewById(R.id.scan_button);
         formatTxt = (TextView) findViewById(R.id.scan_format);
         contentTxt = (TextView) findViewById(R.id.scan_content);
+        precio = (TextView) findViewById(R.id.precio);
         IntentIntegrator scanIntegrator = new IntentIntegrator(this);
         scanIntegrator.initiateScan();
         scanBtn.setOnClickListener(this);
@@ -41,15 +44,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onActivityResult(int requestCode, int resultCode, Intent intent) {
         IntentResult scanningResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, intent);
         if (scanningResult != null) {
-
             Productos pro = new Productos();
             conexion Res = new conexion();
-
             String scanContent = scanningResult.getContents();
             String scanFormat = scanningResult.getFormatName();
-            pro.VerProducto("1",scanContent);
-            String Resultado = Res.Consultar().toString();
-            contentTxt.setText("Contenido: " + Resultado);
+            pro.VerProducto(scanContent);
+            contentTxt.setText("Producto:" + pro.Nombre + ". " + pro.Descripcion);
+            precio.setText("Precio: $" + pro.Precio);
             formatTxt.setText("Formato: " + scanFormat);
         }
     }
