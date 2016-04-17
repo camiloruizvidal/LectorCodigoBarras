@@ -23,7 +23,7 @@ public class IndexActivity extends AppCompatActivity {
                 // acciones que se ejecutan tras los milisegundos
                 Iniciar();
             }
-        }, 3000);
+        }, 1500);
     }
 
     public void Iniciar()
