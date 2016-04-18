@@ -16,7 +16,6 @@ import java.util.List;
 
 public class compras extends AppCompatActivity implements View.OnClickListener {
 
-    private String Tienda;
     private String[] ListProductos;
     private ListView listado_productos;
     private TextView TotaltextView;
@@ -24,7 +23,6 @@ public class compras extends AppCompatActivity implements View.OnClickListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Tienda = "";//getIntent().getExtras().getString("tienda");
         setContentView(R.layout.activity_compras);
         listado_productos = (ListView) findViewById(R.id.listado_productos);
         Button consultar = (Button) findViewById(R.id.consultarcompras);
@@ -52,5 +50,6 @@ public class compras extends AppCompatActivity implements View.OnClickListener {
     public void onClick(View v) {
         Intent i = new Intent(this, MainActivity.class);
         startActivity(i);
+        finish();
     }
 }

@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.milo.codigobarras.com.google.zxing.integration.IntentIntegrator;
@@ -19,6 +20,8 @@ import java.util.concurrent.ExecutionException;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     private Button scanBtn, AddBtn, CancelBtn;
     private TextView formatTxt, contentTxt, precio;
+    private int CantidadProductos;
+    private EditText cantidad;
     Productos pro;
 
     @Override
@@ -34,6 +37,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         formatTxt = (TextView) findViewById(R.id.scan_format);
         contentTxt = (TextView) findViewById(R.id.scan_content);
         precio = (TextView) findViewById(R.id.precio);
+        cantidad = (EditText) findViewById(R.id.cantiEditText);
         IntentIntegrator scanIntegrator = new IntentIntegrator(this);
         scanIntegrator.initiateScan();
 
@@ -54,16 +58,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 AgregarElementos();
                 i = new Intent(this, compras.class);
                 startActivity(i);
+                finish();
                 break;
             case R.id.CancelBtn:
                 i = new Intent(this, compras.class);
                 startActivity(i);
+                finish();
                 break;
         }
     }
 
     private void AgregarElementos() {
         pro.AddContext(this);
+        pro.cantidad = cantidad.getText().toString();
         pro.AgregarProductoLista();
     }
 

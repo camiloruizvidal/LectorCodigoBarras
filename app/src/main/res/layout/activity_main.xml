@@ -53,7 +53,7 @@
         android:layout_height="wrap_content"
         android:inputType="number"
         android:ems="10"
-        android:id="@+id/editText"
+        android:id="@+id/cantiEditText"
         android:layout_alignTop="@+id/textView3"
         android:layout_alignRight="@+id/AddBtn"
         android:layout_alignEnd="@+id/AddBtn"
@@ -76,7 +76,7 @@
         android:layout_height="wrap_content"
         android:text="Agregar"
         android:id="@+id/AddBtn"
-        android:layout_below="@+id/editText"
+        android:layout_below="@+id/cantiEditText"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="51dp"
         android:background="@color/colorPrimaryDark" />

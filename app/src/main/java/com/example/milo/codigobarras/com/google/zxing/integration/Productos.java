@@ -19,7 +19,7 @@ public class Productos {
     public String Nombre;
     public String Descripcion;
     public String Precio;
-    public int cantidad;
+    public String cantidad;
     private Context context;
 
     public void VerProducto(String numero_cod_barra) {
@@ -47,7 +47,7 @@ public class Productos {
         registro.put("nombre", this.Nombre);
         registro.put("descripcion", this.Descripcion);
         registro.put("precio", this.Precio);
-        registro.put("precio", this.cantidad);
+        registro.put("cantidad", this.cantidad);
         try {
             con2.UpdateOrInsert(registro, "Select cod_bar, descripcion, nombre, precio, cantidad from " + con2.getTabla() + " ", " cod_bar='" + this.codigobar + "' ");
         } catch (Exception e) {
@@ -87,6 +87,11 @@ public class Productos {
     public double PrecioTotal() {
         double total = 0;
         ArrayList<String[]> Datos = this.VerListadoProductos();
+
+        for (int i = 0; i < Datos.size(); i++) {
+            String[] temp = Datos.get(i);
+            total = total + (Double.parseDouble(temp[4]) * Double.parseDouble(temp[5]));
+        }
         return total;
     }
 
