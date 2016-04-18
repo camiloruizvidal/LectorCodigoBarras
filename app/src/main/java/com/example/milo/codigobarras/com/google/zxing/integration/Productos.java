@@ -1,18 +1,26 @@
 package com.example.milo.codigobarras.com.google.zxing.integration;
 
+import android.content.ContentValues;
+import android.content.Context;
+import android.util.Log;
+
 import com.example.milo.codigobarras.conexion;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+
 /**
  * Created by MILO on 14/04/2016.
  */
 public class Productos {
-    public String Descripcion;
-    public String Nombre;
-    public String Precio;
     public String codigobar;
+    public String Nombre;
+    public String Descripcion;
+    public String Precio;
+    public String cantidad;
+    private Context context;
 
     public void VerProducto(String numero_cod_barra) {
         String id_tienda = "1";
@@ -26,12 +34,25 @@ public class Productos {
         try {
             jsonObj = new JSONObject(Resultado);
             VerDatosProductos(jsonObj);
-
-
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
+    }
+
+    public void AgregarProductoLista() {
+        conexion_local con2 = new conexion_local(context, "tbl_datos", null, 1);
+        ContentValues registro = new ContentValues();
+        registro.put("cod_bar", this.codigobar);
+        registro.put("nombre", this.Nombre);
+        registro.put("descripcion", this.Descripcion);
+        registro.put("precio", this.Precio);
+        registro.put("cantidad", this.cantidad);
+        try {
+            con2.UpdateOrInsert(registro, "Select cod_bar, descripcion, nombre, precio, cantidad from " + con2.getTabla() + " ", " cod_bar='"+this.codigobar+"' ");
+        } catch (Exception e) {
+            Log.d("Error",e.getMessage());
+        }
     }
 
     private void VerDatosProductos(JSONObject jsonObj) {
@@ -40,19 +61,39 @@ public class Productos {
         this.codigobar = "";
         try {
             String Existe = jsonObj.getString("Existe");
-            if (Existe.equals("Si"))
-            {
+            if (Existe.equals("Si")) {
 
-                JSONObject Datos=jsonObj.getJSONObject("datos");
+                JSONObject Datos = jsonObj.getJSONObject("datos");
                 this.Nombre = Datos.getString("nombre");
                 this.Descripcion = Datos.getString("descripcion");
                 this.Precio = Datos.getString("precio");
                 this.codigobar = Datos.getString("numero_cod_barra");
+                this.cantidad = Datos.getString("cantidad");
             }
 
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
+    }
+
+    public void EliminarProducto(int id_cod_bar) {
+
+    }
+
+    public void AddContext(Context context) {
+        this.context = context;
+    }
+
+    public double PrecioTotal() {
+        conexion_local con2 = new conexion_local(context, "tbl_datos", null, 1);
+        ArrayList<String> Datos = con2.Record("Select SUM(precio) as Total from " + con2.getTabla());
+        return Double.parseDouble(Datos.get(0));
+    }
+
+    public ArrayList<String[]> VerListadoProductos() {
+        conexion_local con2 = new conexion_local(context, "tbl_datos", null, 1);
+        ArrayList<String[]> Datos = con2.Records("Select codigo, cod_bar, nombre, descripcion,  precio, cantidad, (precio*cantidad) as totalizado from " + con2.getTabla());
+        return Datos;
     }
 }
