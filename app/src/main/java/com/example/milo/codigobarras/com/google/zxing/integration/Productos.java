@@ -19,7 +19,7 @@ public class Productos {
     public String Nombre;
     public String Descripcion;
     public String Precio;
-    public String cantidad;
+    public int cantidad;
     private Context context;
 
     public void VerProducto(String numero_cod_barra) {
@@ -47,11 +47,11 @@ public class Productos {
         registro.put("nombre", this.Nombre);
         registro.put("descripcion", this.Descripcion);
         registro.put("precio", this.Precio);
-        registro.put("cantidad", this.cantidad);
+        registro.put("precio", this.cantidad);
         try {
-            con2.UpdateOrInsert(registro, "Select cod_bar, descripcion, nombre, precio, cantidad from " + con2.getTabla() + " ", " cod_bar='"+this.codigobar+"' ");
+            con2.UpdateOrInsert(registro, "Select cod_bar, descripcion, nombre, precio, cantidad from " + con2.getTabla() + " ", " cod_bar='" + this.codigobar + "' ");
         } catch (Exception e) {
-            Log.d("Error",e.getMessage());
+            Log.d("Error", e.getMessage());
         }
     }
 
@@ -68,7 +68,6 @@ public class Productos {
                 this.Descripcion = Datos.getString("descripcion");
                 this.Precio = Datos.getString("precio");
                 this.codigobar = Datos.getString("numero_cod_barra");
-                this.cantidad = Datos.getString("cantidad");
             }
 
         } catch (JSONException e) {
@@ -86,14 +85,14 @@ public class Productos {
     }
 
     public double PrecioTotal() {
-        conexion_local con2 = new conexion_local(context, "tbl_datos", null, 1);
-        ArrayList<String> Datos = con2.Record("Select SUM(precio) as Total from " + con2.getTabla());
-        return Double.parseDouble(Datos.get(0));
+        double total = 0;
+        ArrayList<String[]> Datos = this.VerListadoProductos();
+        return total;
     }
 
     public ArrayList<String[]> VerListadoProductos() {
         conexion_local con2 = new conexion_local(context, "tbl_datos", null, 1);
-        ArrayList<String[]> Datos = con2.Records("Select codigo, cod_bar, nombre, descripcion,  precio, cantidad, (precio*cantidad) as totalizado from " + con2.getTabla());
+        ArrayList<String[]> Datos = con2.Records("Select codigo, cod_bar, nombre, descripcion,  precio, cantidad from " + con2.getTabla());
         return Datos;
     }
 }

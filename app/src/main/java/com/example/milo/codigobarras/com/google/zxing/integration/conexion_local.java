@@ -34,7 +34,7 @@ public class conexion_local extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("create table " + this.tabla + "(codigo integer primary key autoincrement, cod_bar text, descripcion text, nombre text, precio real, cantidad integer)");
+        db.execSQL("create table " + this.tabla + "(codigo integer primary key autoincrement, cod_bar text, descripcion text, nombre text, precio real)");
     }
 
     public void Save(ContentValues registro) {
