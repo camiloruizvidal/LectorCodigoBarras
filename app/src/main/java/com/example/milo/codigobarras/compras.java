@@ -4,11 +4,10 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.milo.codigobarras.com.google.zxing.integration.Productos;
 
@@ -36,13 +35,12 @@ public class compras extends AppCompatActivity implements View.OnClickListener {
         pro.AddContext(this);
         List<String[]> Datos = pro.VerListadoProductos();
         int total = Datos.size();
-        ListProductos = new String[total];
+        items_list data[] = new items_list[total];
         for (int i = 0; i < total; i++) {
             String[] Temp = Datos.get(i);
-            ListProductos[i] = Temp[2] + ". $" + Temp[4] + " = " + Temp[5];
+            new items_list(Temp[2]);
         }
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, ListProductos);
-        listado_productos.setAdapter(adapter);
+        AdapterItems adapter = new AdapterItems(this, R.layout.imtes, data);
         TotaltextView.setText("$" + pro.PrecioTotal());
     }
 
