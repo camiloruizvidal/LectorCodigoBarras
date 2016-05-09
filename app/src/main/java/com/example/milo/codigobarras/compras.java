@@ -30,17 +30,23 @@ public class compras extends AppCompatActivity implements View.OnClickListener {
         ConsultarProductos();
     }
 
-    private void ConsultarProductos() {
+    private void ConsultarProductos(){
         Productos pro = new Productos();
         pro.AddContext(this);
         List<String[]> Datos = pro.VerListadoProductos();
         int total = Datos.size();
-        items_list data[] = new items_list[total];
-        for (int i = 0; i < total; i++) {
-            String[] Temp = Datos.get(i);
-            new items_list(Temp[2]);
-        }
+        items_list data[] = new items_list[]{
+                new items_list("Arroz"),
+                new items_list("Cafe"),
+                new items_list("Azucar"),
+                new items_list("Sal"),
+                new items_list("Miel"),
+                new items_list("Mortadela"),
+                new items_list("Yogour"),
+                new items_list("Cereal"),
+        };
         AdapterItems adapter = new AdapterItems(this, R.layout.imtes, data);
+        listado_productos.setAdapter(adapter);
         TotaltextView.setText("$" + pro.PrecioTotal());
     }
 
