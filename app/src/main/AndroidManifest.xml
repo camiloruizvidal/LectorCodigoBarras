@@ -20,11 +20,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".tienda_actual" />
-        <activity android:name=".compras" />
-        <activity
-            android:name=".items"
-            android:label="@string/title_activity_items"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name=".compras"></activity>
     </application>
 
 </manifest>
