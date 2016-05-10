@@ -33,6 +33,9 @@ public class AdapterItems extends ArrayAdapter<items_list> {
 
             holder = new items_listHolder();
             holder.Producto=(TextView)row.findViewById(R.id.TxVwProducto);
+            holder.Precio=(TextView)row.findViewById(R.id.TxVwPrecio);
+            holder.Cantidad=(TextView)row.findViewById(R.id.TxVwCantidad);
+            holder.Total=(TextView)row.findViewById(R.id.TxVwTotal);
             row.setTag(holder);
         }
         else
@@ -41,6 +44,9 @@ public class AdapterItems extends ArrayAdapter<items_list> {
         }
         items_list items=data[position];
         holder.Producto.setText(items.nombre);
+        holder.Precio.setText(items.precio);
+        holder.Cantidad.setText(items.cantidad);
+        holder.Total.setText(items.total);
         return row;
     }
     static class items_listHolder{

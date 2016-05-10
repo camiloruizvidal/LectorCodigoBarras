@@ -100,4 +100,10 @@ public class Productos {
         ArrayList<String[]> Datos = con2.Records("Select codigo, cod_bar, nombre, descripcion,  precio, cantidad from " + con2.getTabla());
         return Datos;
     }
+    public ArrayList<String> VerProductoCod(String codigo)
+    {
+        conexion_local con2 = new conexion_local(context, "tbl_datos", null, 1);
+        ArrayList<String> Datos = con2.Record("Select codigo, cod_bar, nombre, descripcion,  precio, cantidad from " + con2.getTabla() + " where codigo="+codigo);
+        return Datos;
+    }
 }

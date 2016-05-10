@@ -5,40 +5,39 @@
     android:layout_weight="10">
 
     <ImageView
+        android:id="@+id/imageView2"
         android:layout_width="93dp"
         android:layout_height="89dp"
-        android:id="@+id/imageView2"
         android:src="@mipmap/item_car" />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="7"
         android:orientation="vertical">
+    <TextView
+        android:id="@+id/TxVwProducto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Producto"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <TextView
+        android:id="@+id/TxVwPrecio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Precio" />
+
+
 
         <TextView
+            android:id="@+id/TxVwCantidad"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Producto"
-            android:id="@+id/TxVwProducto" />
+            android:text="cantidad" />
 
         <TextView
+            android:id="@+id/TxVwTotal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="cantidad"
-            android:id="@+id/TxVwCantidad" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Precio"
-            android:id="@+id/TxVwPrecio" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Total"
-            android:id="@+id/TxVwTotal" />
-
+            android:text="Total" />
     </LinearLayout>
 </LinearLayout>
