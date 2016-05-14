@@ -9,14 +9,18 @@ import android.location.LocationManager;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import java.util.List;
+
 public class tienda_actual extends AppCompatActivity {
     ListView tienda;
-    String[] Tiendas = null;
+    List<String[]> Tiendas = null;
+    String[] TiendasName = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,22 +36,26 @@ public class tienda_actual extends AppCompatActivity {
             return;
         }
         Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-        double longitud = location.getLongitude();
-        double latitud = location.getLatitude();
         classtienda Listtienda = new classtienda();
-        Tiendas = Listtienda.VerTiendas(longitud, latitud);
-
+        Tiendas = Listtienda.VerTiendas(location.getLongitude(), location.getLatitude());
+        TiendasName = new String[Tiendas.size()];
+        for (int i = 0; i < Tiendas.size(); i++) {
+            String[] Data = Tiendas.get(i);
+            TiendasName[i] =Data[1];
+        }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tienda_actual);
         tienda = (ListView) findViewById(R.id.listView);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, Tiendas);
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, TiendasName);
         tienda.setAdapter(adapter);
         final tienda_actual esto = this;
         tienda.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent i = new Intent(esto, compras.class);
-                String TiendaElegida = Tiendas[position];
+                String TiendaElegida = Tiendas.get(position)[0];
+                Log.e("TiendaElegida", TiendaElegida);
                 i.putExtra("tienda", TiendaElegida);
                 startActivity(i);
                 finish();
