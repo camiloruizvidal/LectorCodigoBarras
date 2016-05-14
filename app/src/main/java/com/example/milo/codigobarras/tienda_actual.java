@@ -29,13 +29,10 @@ public class tienda_actual extends AppCompatActivity {
             LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
             if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                 // TODO: Consider calling
-
                 return;
             }
-
             Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
             classtienda Listtienda = new classtienda();
-
             Tiendas = Listtienda.VerTiendas(location.getLongitude(), location.getLatitude());
             TiendasName = new String[Tiendas.size()];
             for (int i = 0; i < Tiendas.size(); i++) {
@@ -45,7 +42,6 @@ public class tienda_actual extends AppCompatActivity {
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_tienda_actual);
             tienda = (ListView) findViewById(R.id.listView);
-
             ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, TiendasName);
             tienda.setAdapter(adapter);
             final tienda_actual esto = this;
@@ -53,9 +49,9 @@ public class tienda_actual extends AppCompatActivity {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     Intent i = new Intent(esto, compras.class);
-                    String TiendaElegida = Tiendas.get(position)[0];
-                    Log.e("TiendaElegida", TiendaElegida);
-                    i.putExtra("tienda", TiendaElegida);
+                    String NombreTiendaElegida = Tiendas.get(position)[1];
+                    String idTiendaElegida = Tiendas.get(position)[0];
+                    i.putExtra("codtienda", idTiendaElegida);
                     startActivity(i);
                     finish();
                 }

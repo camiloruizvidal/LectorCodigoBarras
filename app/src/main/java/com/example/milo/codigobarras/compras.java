@@ -18,6 +18,7 @@ import java.util.List;
 
 public class compras extends AppCompatActivity implements View.OnClickListener {
 
+    private String idTienda;
     private String[] ListProductos;
     private ListView listado_productos;
     private TextView TotaltextView;
@@ -29,6 +30,10 @@ public class compras extends AppCompatActivity implements View.OnClickListener {
         listado_productos = (ListView) findViewById(R.id.listado_productos);
         Button consultar = (Button) findViewById(R.id.consultarcompras);
         TotaltextView = (TextView) findViewById(R.id.TotaltextView);
+        Bundle extras = getIntent().getExtras();
+        idTienda=extras.getString("codtienda");
+        Toast.makeText(this, "tienda elegida : " + idTienda, Toast.LENGTH_LONG).show();
+
         consultar.setOnClickListener(this);
         ConsultarProductos();
     }
