@@ -18,7 +18,7 @@ import java.util.List;
 public class classtienda {
 
     public List<String[]> VerTiendas(double Longitud, double Latitud) {
-        List<String[]> tiendas= new ArrayList<>();
+        List<String[]> tiendas = new ArrayList<>();
         try {
             String Resultado = "";
             /*
@@ -34,16 +34,17 @@ public class classtienda {
             JSONArray jsonArr = null;
             jsonArr = new JSONArray(Resultado);
 
-            String[] Datatiendas = new String[jsonArr.length()];
             for (int i = 0; i < jsonArr.length(); i++) {
+                String[] Datatiendas = new String[jsonArr.length()];
                 String temp = jsonArr.getString(i);
-                JSONObject jsonObj=new JSONObject(temp);
+                JSONObject jsonObj = new JSONObject(temp);
                 Datatiendas[0] = jsonObj.getString("id");
                 Datatiendas[1] = jsonObj.getString("nombre");
-                tiendas.add(Datatiendas);
+                String[] add=Datatiendas;
+                tiendas.add(add);
             }
         } catch (JSONException e) {
-            Log.e("===================",e.getLocalizedMessage());
+            Log.e("===================", e.getLocalizedMessage());
         } finally {
             return tiendas;
         }
