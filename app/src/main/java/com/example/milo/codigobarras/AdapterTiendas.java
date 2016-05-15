@@ -24,27 +24,24 @@ public class AdapterTiendas extends ArrayAdapter<ListTiendas> {
     public View getView(int position, View ConvertView, ViewGroup parent)
     {
         View row = ConvertView;
-        classImagesUrl img = new classImagesUrl();
         ListTiendasHolder holder = null;
         if (row == null) {
-            LayoutInflater Inflater = ((Activity) context).getLayoutInflater();
-            row = Inflater.inflate(LayoutResourceId, parent, false);
+            LayoutInflater Inflater = ((Activity) this.context).getLayoutInflater();
+            row = Inflater.inflate(this.LayoutResourceId, parent, false);
+
             holder = new ListTiendasHolder();
             holder.Tienda = (TextView) row.findViewById(R.id.TextViewNombreTienda);
-            holder.ImagenLogo =(ImageView) row.findViewById(R.id.imageViewLogoAlmacen);
             row.setTag(holder);
         } else {
             holder = (ListTiendasHolder) row.getTag();
         }
         ListTiendas items = data[position];
         holder.Tienda.setText(items.NombreTienda);
-        //holder.ImagenLogo.setImageBitmap(img.crearImaView(items.UrlImage));
         return row;
     }
 
     static class ListTiendasHolder {
         TextView Tienda;
-        ImageView ImagenLogo;
 
     }
 }

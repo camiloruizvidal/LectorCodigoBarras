@@ -23,33 +23,32 @@ public class AdapterItems extends ArrayAdapter<items_list> {
         this.LayoutResourceId = LayoutResourceId;
         this.data = data;
     }
-    public View getView(int position, View ConvertView, ViewGroup parent){
-        View row= ConvertView;
+
+    public View getView(int position, View ConvertView, ViewGroup parent) {
+        View row = ConvertView;
         items_listHolder holder = null;
-        if(row==null)
-        {
-            LayoutInflater Inflater = ((Activity)context).getLayoutInflater();
-            row = Inflater.inflate(LayoutResourceId,parent,false);
+        if (row == null) {
+            LayoutInflater Inflater = ((Activity) context).getLayoutInflater();
+            row = Inflater.inflate(LayoutResourceId, parent, false);
 
             holder = new items_listHolder();
-            holder.Producto=(TextView)row.findViewById(R.id.TxVwProducto);
-            holder.Precio=(TextView)row.findViewById(R.id.TxVwPrecio);
-            holder.Cantidad=(TextView)row.findViewById(R.id.TxVwCantidad);
-            holder.Total=(TextView)row.findViewById(R.id.TxVwTotal);
+            holder.Producto = (TextView) row.findViewById(R.id.TxVwProducto);
+            holder.Precio = (TextView) row.findViewById(R.id.TxVwPrecio);
+            holder.Cantidad = (TextView) row.findViewById(R.id.TxVwCantidad);
+            holder.Total = (TextView) row.findViewById(R.id.TxVwTotal);
             row.setTag(holder);
+        } else {
+            holder = (items_listHolder) row.getTag();
         }
-        else
-        {
-            holder=(items_listHolder)row.getTag();
-        }
-        items_list items=data[position];
+        items_list items = data[position];
         holder.Producto.setText(items.nombre);
         holder.Precio.setText(items.precio);
         holder.Cantidad.setText(items.cantidad);
         holder.Total.setText(items.total);
         return row;
     }
-    static class items_listHolder{
+
+    static class items_listHolder {
         TextView Producto;
         TextView Precio;
         TextView Cantidad;
