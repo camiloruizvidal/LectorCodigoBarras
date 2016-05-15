@@ -46,7 +46,7 @@ public class tienda_actual extends AppCompatActivity {
                 Intent i = new Intent(Esto, compras.class);
                 i.putExtra("CodTIenda", data[position].CodTienda);
                 startActivity(i);
-                finish();
+                //finish();
             }
         });
         /**/

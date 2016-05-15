@@ -67,11 +67,10 @@ public class Productos {
             String Existe = jsonObj.getString("Existe");
             if (Existe.equals("Si")) {
 
-                JSONObject Datos = jsonObj.getJSONObject("datos");
-                this.nombre = Datos.getString("nombre");
-                this.descripcion = Datos.getString("descripcion");
-                this.precio = Datos.getString("precio");
-                this.ref = Datos.getString("ref");
+                this.nombre = jsonObj.getString("nombre");
+                this.descripcion = jsonObj.getString("descripcion");
+                this.precio = jsonObj.getString("precio");
+                this.ref = jsonObj.getString("ref");
             }
 
         } catch (JSONException e) {
