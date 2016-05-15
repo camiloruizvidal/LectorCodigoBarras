@@ -20,6 +20,10 @@ public class tienda_actual extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tienda_actual);
 
+        VerTienda();
+    }
+
+    public void VerTienda() {
         classgps Loc = new classgps();
 
         ListView tienda;
@@ -49,7 +53,6 @@ public class tienda_actual extends AppCompatActivity {
                 //finish();
             }
         });
-        /**/
-    }
 
+    }
 }

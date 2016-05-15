@@ -28,7 +28,7 @@ public class classtienda {
             Res.Parametros("Parametros[Latitud]", Double.toString(Latitud));
             Resultado = Res.Consultar();
 
-            Resultado = "[ { \"id\": \"c4ca4238a0b923820dcc509a6f75849b\", \"nombre\": \"La casa de Do\\u00f1a Gloria\" ,\"urlimage\":\"http://grivaningenieria.com.co/wp-content/uploads/2015/04/exito-logo.png\"}, { \"id\": \"c4ca4238a0b923820dcc509a6f75849c\", \"nombre\": \"La puerca est\\u00e1 en la pocilga\" ,\"urlimage\":\"http://grivaningenieria.com.co/wp-content/uploads/2015/04/exito-logo.png\" } ]";
+            //Resultado = "[ { \"id\": \"c4ca4238a0b923820dcc509a6f75849b\", \"nombre\": \"La casa de Do\\u00f1a Gloria\" ,\"urlimage\":\"http://grivaningenieria.com.co/wp-content/uploads/2015/04/exito-logo.png\"}, { \"id\": \"c4ca4238a0b923820dcc509a6f75849c\", \"nombre\": \"La puerca est\\u00e1 en la pocilga\" ,\"urlimage\":\"http://grivaningenieria.com.co/wp-content/uploads/2015/04/exito-logo.png\" } ]";
             Log.e("resultado", Resultado);
             JSONArray jsonArr = null;
             jsonArr = new JSONArray(Resultado);
