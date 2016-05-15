@@ -10,7 +10,6 @@ import android.net.Uri;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -64,9 +63,8 @@ public class tienda_actual extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent i = new Intent(esto, compras.class);
-                String TiendaElegida = Tiendas.get(position)[0];
-                Log.e("TiendaElegida", TiendaElegida);
-                i.putExtra("tienda", TiendaElegida);
+                String CodTIenda = Tiendas.get(position)[0];
+                i.putExtra("CodTIenda", CodTIenda);
                 startActivity(i);
                 finish();
             }

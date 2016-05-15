@@ -17,7 +17,7 @@ import java.text.DecimalFormat;
 import java.util.List;
 
 public class compras extends AppCompatActivity implements View.OnClickListener {
-
+    private String CodTIenda;
     private String[] ListProductos;
     private ListView listado_productos;
     private TextView TotaltextView;
@@ -26,6 +26,8 @@ public class compras extends AppCompatActivity implements View.OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_compras);
+        Intent intent = getIntent();
+        this.CodTIenda=intent.getStringExtra("CodTIenda");
         listado_productos = (ListView) findViewById(R.id.listado_productos);
         Button consultar = (Button) findViewById(R.id.consultarcompras);
         TotaltextView = (TextView) findViewById(R.id.TotaltextView);
@@ -60,6 +62,7 @@ public class compras extends AppCompatActivity implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         Intent i = new Intent(this, MainActivity.class);
+        i.putExtra("CodTIenda", this.CodTIenda);
         startActivity(i);
         finish();
     }

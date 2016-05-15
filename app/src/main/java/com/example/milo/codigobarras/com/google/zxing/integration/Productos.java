@@ -15,23 +15,24 @@ import java.util.ArrayList;
  * Created by MILO on 14/04/2016.
  */
 public class Productos {
-    public String codigobar;
-    public String Nombre;
-    public String Descripcion;
-    public String Precio;
+    public String ref;
+    public String nombre;
+    public String descripcion;
+    public String precio;
     public String cantidad;
     private Context context;
 
-    public void VerProducto(String numero_cod_barra) {
-        String id_tienda = "1";
+    public void VerProducto(String numero_cod_barra,String CodTIenda) {
         conexion Res = new conexion();
         //Ingresando parametros para enviar
-        Res.Parametros("id_tienda", id_tienda);
-        Res.Parametros("numero_cod_barra", numero_cod_barra);
+        Res.Parametros("Estado", "BuscarProducto");
+        Res.Parametros("Parametros[CodTienda]", CodTIenda);
+        Res.Parametros("Parametros[numero_cod_barra]", numero_cod_barra);
         //Se ingresaron todos los parametros
         String Resultado = Res.Consultar();
         JSONObject jsonObj = null;
         try {
+            Log.e("BuscarError",Resultado);
             jsonObj = new JSONObject(Resultado);
             VerDatosProductos(jsonObj);
         } catch (JSONException e) {
@@ -43,34 +44,37 @@ public class Productos {
     public void AgregarProductoLista() {
         conexion_local con2 = new conexion_local(context, "tbl_datos", null, 1);
         ContentValues registro = new ContentValues();
-        registro.put("cod_bar", this.codigobar);
-        registro.put("nombre", this.Nombre);
-        registro.put("descripcion", this.Descripcion);
-        registro.put("precio", this.Precio);
+        registro.put("ref", this.ref);
+        registro.put("descripcion", this.descripcion);
+        registro.put("nombre", this.nombre);
+        registro.put("precio", this.precio);
         registro.put("cantidad", this.cantidad);
         try {
-            con2.UpdateOrInsert(registro, "Select cod_bar, descripcion, nombre, precio, cantidad from " + con2.getTabla() + " ", " cod_bar='" + this.codigobar + "' ");
+            con2.UpdateOrInsert(registro, "Select ref, descripcion, nombre, precio, cantidad from " + con2.getTabla() + " ", " ref='" + this.ref+ "' ");
         } catch (Exception e) {
             Log.d("Error", e.getMessage());
         }
     }
 
     private void VerDatosProductos(JSONObject jsonObj) {
-        this.Descripcion = "";
-        this.Precio = "0";
-        this.codigobar = "";
+
+
+        this.descripcion="";
+        this.precio="0";
+        this.ref="";
         try {
             String Existe = jsonObj.getString("Existe");
             if (Existe.equals("Si")) {
 
                 JSONObject Datos = jsonObj.getJSONObject("datos");
-                this.Nombre = Datos.getString("nombre");
-                this.Descripcion = Datos.getString("descripcion");
-                this.Precio = Datos.getString("precio");
-                this.codigobar = Datos.getString("numero_cod_barra");
+                this.nombre = Datos.getString("nombre");
+                this.descripcion = Datos.getString("descripcion");
+                this.precio = Datos.getString("precio");
+                this.ref = Datos.getString("ref");
             }
 
         } catch (JSONException e) {
+            Log.d("Error_json",e.getMessage());
             e.printStackTrace();
         }
 
@@ -97,13 +101,13 @@ public class Productos {
 
     public ArrayList<String[]> VerListadoProductos() {
         conexion_local con2 = new conexion_local(context, "tbl_datos", null, 1);
-        ArrayList<String[]> Datos = con2.Records("Select codigo, cod_bar, nombre, descripcion,  precio, cantidad from " + con2.getTabla());
+        ArrayList<String[]> Datos = con2.Records("Select ref, descripcion, nombre, precio, cantidad  from " + con2.getTabla());
         return Datos;
     }
     public ArrayList<String> VerProductoCod(String codigo)
     {
         conexion_local con2 = new conexion_local(context, "tbl_datos", null, 1);
-        ArrayList<String> Datos = con2.Record("Select codigo, cod_bar, nombre, descripcion,  precio, cantidad from " + con2.getTabla() + " where codigo="+codigo);
+        ArrayList<String> Datos = con2.Record("Select ref, descripcion, nombre, precio, cantidad from " + con2.getTabla() + " where ref="+codigo);
         return Datos;
     }
 }

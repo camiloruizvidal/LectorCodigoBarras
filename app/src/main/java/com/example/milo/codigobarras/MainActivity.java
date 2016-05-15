@@ -10,6 +10,7 @@ import android.location.LocationManager;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -29,16 +30,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private int CantidadProductos;
     private EditText cantidad;
     Productos pro;
+    private String CodTIenda;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        pro = new Productos();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        pro = new Productos();
         scanBtn = (Button) findViewById(R.id.scan_button);
         AddBtn = (Button) findViewById(R.id.AddBtn);
         CancelBtn = (Button) findViewById(R.id.CancelBtn);
+        Intent intent = getIntent();
+        this.CodTIenda=intent.getStringExtra("CodTIenda");
 
         formatTxt = (TextView) findViewById(R.id.scan_format);
         contentTxt = (TextView) findViewById(R.id.scan_content);
@@ -86,9 +89,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             conexion Res = new conexion();
             String scanContent = scanningResult.getContents();
             String scanFormat = scanningResult.getFormatName();
-            pro.VerProducto(scanContent);
-            contentTxt.setText("Producto:" + pro.Nombre + ". " + pro.Descripcion);
-            precio.setText("Precio: $" + pro.Precio);
+            pro.VerProducto(scanContent, this.CodTIenda);
+
+            contentTxt.setText("Producto: " + pro.nombre + ". " + pro.descripcion);
+            precio.setText("Precio: $" + pro.precio);
             formatTxt.setText("Formato: " + scanFormat);
         }
     }
