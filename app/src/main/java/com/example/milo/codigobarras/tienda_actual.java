@@ -1,9 +1,14 @@
 package com.example.milo.codigobarras;
 
 
+import android.content.Context;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -34,19 +39,17 @@ public class tienda_actual extends AppCompatActivity {
         AdapterTiendas adapter = new AdapterTiendas(this, R.layout.list_tiendas, data);
         tienda = (ListView) findViewById(R.id.listViewTiendas);
         tienda.setAdapter(adapter);
-        /**/
-
-
-
-        /*
         final Context Esto = this;
         tienda.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(Esto, "Producto es " + data[position].NombreTienda, Toast.LENGTH_SHORT).show();
+                Intent i = new Intent(Esto, compras.class);
+                i.putExtra("CodTIenda", data[position].CodTienda);
+                startActivity(i);
+                finish();
             }
         });
-        */
+        /**/
     }
 
 }
