@@ -22,7 +22,7 @@ public class Productos {
     public String cantidad;
     private Context context;
 
-    public void VerProducto(String numero_cod_barra,String CodTIenda) {
+    public void VerProducto(String numero_cod_barra, String CodTIenda) {
         conexion Res = new conexion();
         //Ingresando parametros para enviar
         Res.Parametros("Estado", "BuscarProducto");
@@ -32,7 +32,7 @@ public class Productos {
         String Resultado = Res.Consultar();
         JSONObject jsonObj = null;
         try {
-            Log.e("BuscarError",Resultado);
+            Log.e("BuscarError", Resultado);
             jsonObj = new JSONObject(Resultado);
             VerDatosProductos(jsonObj);
         } catch (JSONException e) {
@@ -50,7 +50,7 @@ public class Productos {
         registro.put("precio", this.precio);
         registro.put("cantidad", this.cantidad);
         try {
-            con2.UpdateOrInsert(registro, "Select ref, descripcion, nombre, precio, cantidad from " + con2.getTabla() + " ", " ref='" + this.ref+ "' ");
+            con2.UpdateOrInsert(registro, "Select ref, descripcion, nombre, precio, cantidad from " + con2.getTabla() + " ", " ref='" + this.ref + "' ");
         } catch (Exception e) {
             Log.d("Error", e.getMessage());
         }
@@ -59,9 +59,10 @@ public class Productos {
     private void VerDatosProductos(JSONObject jsonObj) {
 
 
-        this.descripcion="";
-        this.precio="0";
-        this.ref="";
+        this.descripcion = "";
+        this.precio = "0";
+        this.ref = "";
+        this.nombre = "";
         try {
             String Existe = jsonObj.getString("Existe");
             if (Existe.equals("Si")) {
@@ -74,7 +75,7 @@ public class Productos {
             }
 
         } catch (JSONException e) {
-            Log.d("Error_json",e.getMessage());
+            Log.d("Error_json", e.getMessage());
             e.printStackTrace();
         }
 
@@ -104,10 +105,10 @@ public class Productos {
         ArrayList<String[]> Datos = con2.Records("Select ref, descripcion, nombre, precio, cantidad  from " + con2.getTabla());
         return Datos;
     }
-    public ArrayList<String> VerProductoCod(String codigo)
-    {
+
+    public ArrayList<String> VerProductoCod(String codigo) {
         conexion_local con2 = new conexion_local(context, "tbl_datos", null, 1);
-        ArrayList<String> Datos = con2.Record("Select ref, descripcion, nombre, precio, cantidad from " + con2.getTabla() + " where ref="+codigo);
+        ArrayList<String> Datos = con2.Record("Select ref, descripcion, nombre, precio, cantidad from " + con2.getTabla() + " where ref=" + codigo);
         return Datos;
     }
 }
